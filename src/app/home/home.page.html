@@ -1,14 +1,57 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>
-      Ionic Blank
+  <ion-toolbar color="dark">
+    <ion-title class="ion-text-center">
+      <strong>Piet Laureyns</strong> - Ionic Project - Fun Animal Facts!
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
+<!-- LISTVIEW AND GRIDVIEW OPTIONS??????? -->
+<!-- <ion-grid>
+  <ion-row col-12>
+    <ion-col col-6 *ngFor="let item of items">
+      <div class="card card-1">
+        <img src="{{item.imageUrl}}">
+        <p style="font-size: 9px;">{{item.title}}</p>
+      </div>
+    </ion-col>
+  </ion-row>
+</ion-grid> -->
 <ion-content>
-  <div class="ion-padding">
-    The world is your oyster.
-    <p>If you get lost, the <a target="_blank" rel="noopener" href="https://ionicframework.com/docs/">docs</a> will be your guide.</p>
-  </div>
+  <ion-grid>
+    <ion-row>
+      <ion-col size-md="8" offset-md="2">
+        <ion-card class="ion-padding" color="dark">
+          <ion-card-title class="ion-text-center">
+            <ion-title>Animals</ion-title>
+          </ion-card-title>
+          <ion-card-header>
+            <ion-item color="dark">
+              <ion-searchbar showCancelButton="focus" placeholder="Dog" (onChange)="searchBarChange()"></ion-searchbar>
+              <ion-button color="success" (click)="createNewItemClicked()">
+                <ion-icon slot="start" name="add"></ion-icon> New Item
+              </ion-button>
+            </ion-item>
+          </ion-card-header>
+          <ion-card-content>
+            <ion-list class="ion-no-padding">
+              <ion-item *ngFor="let item of items" class="ion-no-padding" (click)="itemClicked(item)"
+                id="{{item.title}}">
+                <ion-thumbnail class="ion-no-margin">
+                  <img src='{{item.imageUrl}}' />
+                </ion-thumbnail>
+                <ion-title size="large">{{ item.title }}</ion-title>
+                <ion-button (click)="selectItem(item)">
+                  <ion-icon slot="start" name="arrow-dropdown"></ion-icon> Show More
+                </ion-button>
+                <ion-button type="button" color="danger" (click)="deleteItem(item)">
+                  <ion-icon name="close"></ion-icon>
+                </ion-button>
+              </ion-item>
+            </ion-list>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>
