@@ -1,16 +1,49 @@
-ion-list ion-item:hover{
+ion-virtual-scroll ion-item:hover{
     cursor: pointer;
     opacity: 90%;
 }
 
+.item {
+    border:solid 1px var(--ion-color-dark);
+    border-radius: 1vw;
+  }
+
+.itemDescription {
+    padding-top: 0.1vw;
+    padding-bottom: 0.1vw;
+}
+
+.virtual-loading{
+    opacity: 1;
+}
+
+.expand-wrapper {
+    transition: max-height 0.5s ease-in-out;
+    max-height: 10vw;
+    overflow: hidden;
+    height: auto;
+  }
+  
+  .collapsed {
+    max-height: fit-content !important;
+  }
+
+
 @media only screen and (max-width: 450px) {
 
     ion-button{
-        font-size: 60%;
+        font-size: 50%;
     }
 
     ion-title{
         font-size: 70%;
+        margin: 0;
+        padding-right: 0;
     }
+
+    .showMoreButton{
+       display: none;
+    }
+
 
 }

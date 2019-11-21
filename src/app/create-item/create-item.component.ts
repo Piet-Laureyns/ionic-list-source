@@ -29,7 +29,6 @@ export class CreateItemComponent implements OnInit {
   onSelectFile(event) { // called each time file input changes
     if (event.target.files && event.target.files[0]) {
       this.file = event.target.files[0];
-      console.log(this.file);
       this.imageName = event.target.files[0].name;
       const validImageTypes = ['image/gif', 'image/jpeg', 'image/png'];
       if (!validImageTypes.includes(event.target.files[0].type)) {

@@ -16,7 +16,7 @@
 @import "~@ionic/angular/css/normalize.css";
 @import "~@ionic/angular/css/structure.css";
 @import "~@ionic/angular/css/typography.css";
-@import '~@ionic/angular/css/display.css';
+@import "~@ionic/angular/css/display.css";
 
 /* Optional CSS utils that can be commented out */
 @import "~@ionic/angular/css/padding.css";
@@ -24,4 +24,68 @@
 @import "~@ionic/angular/css/text-alignment.css";
 @import "~@ionic/angular/css/text-transformation.css";
 @import "~@ionic/angular/css/flex-utils.css";
+
+.noButton {
+  color: var(--ion-color-light) !important;
+  background-color: var(--ion-color-danger) !important;
+}
+
+.yesButton {
+  color: var(--ion-color-light) !important;
+  background-color: var(--ion-color-success) !important;
+}
+
+:root ion-content{
+  max-height: 100%;
+}
+
+:root ion-app{
+  max-height: 100%;
+}
+
+:root ion-list {
+  --background: var(--ion-color-dark);
+}
+
+:root ion-searchbar {
+  --background: var(--ion-color-light-shade);
+}
+
+:root ion-title {
+  --color: var(--ion-color-primary);
+}
+
+:root ion-reorder{
+  margin: 0;
+}
+
+:root ion-button{
+  margin-right:0;
+}
+
+:root ion-item{
+  --background: transparant;
+}
+
+:root ion-card-header{
+  padding: 0;
+}
+
+:root ion-alert {
+  --background: var(--ion-color-dark);
+}
+
+:root .alert-title {
+  color: var(--ion-color-primary);
+}
+
+:root .alert-message {
+  color: var(--ion-color-light);
+}
+
+:root .alert-button {
+  padding-top: 1%;
+  padding-bottom: 1%;
+  text-transform: unset;
+}
 

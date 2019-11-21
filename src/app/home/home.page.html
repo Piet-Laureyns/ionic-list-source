@@ -6,7 +6,12 @@
   </ion-toolbar>
 </ion-header>
 
-<!-- LISTVIEW AND GRIDVIEW OPTIONS??????? -->
+<!-- LISTVIEW AND GRIDVIEW OPTIONS??????? 
+
+  <ion-icon name="apps"></ion-icon>
+  <ion-icon name="list"></ion-icon>
+
+-->
 <!-- <ion-grid>
   <ion-row col-12>
     <ion-col col-6 *ngFor="let item of items">
@@ -17,7 +22,7 @@
     </ion-col>
   </ion-row>
 </ion-grid> -->
-<ion-content>
+<ion-content scrollY="true">
   <ion-grid>
     <ion-row>
       <ion-col size-md="8" offset-md="2">
@@ -27,29 +32,91 @@
           </ion-card-title>
           <ion-card-header>
             <ion-item color="dark">
-              <ion-searchbar showCancelButton="focus" placeholder="Dog" (onChange)="searchBarChange()"></ion-searchbar>
+              <ion-searchbar showCancelButton="focus" placeholder="Type the name of an animal"
+                (ionInput)="searchItems($event)"></ion-searchbar>
               <ion-button color="success" (click)="createNewItemClicked()">
-                <ion-icon slot="start" name="add"></ion-icon> New Item
+                <ion-icon slot="start" name="add"></ion-icon> New Animal<ion-icon name="paw" slot='end'></ion-icon>
               </ion-button>
             </ion-item>
           </ion-card-header>
-          <ion-card-content>
-            <ion-list class="ion-no-padding">
-              <ion-item *ngFor="let item of items" class="ion-no-padding" (click)="itemClicked(item)"
-                id="{{item.title}}">
-                <ion-thumbnail class="ion-no-margin">
-                  <img src='{{item.imageUrl}}' />
+
+          <ion-virtual-scroll [items]="filteredItems" approxItemHeight="150px" [trackBy]="tracker" #virtualScroll>
+            <div class="item expand-wrapper" *virtualItem="let item;"
+              [ngStyle]="{'background-color': item.getBackgroundColor()}"
+              (click)="itemClicked(item);$event.stopPropagation();" [id]="item.title"
+              [class.collapsed]="!item.showDescription">
+              <ion-item class="ion-no-padding" lines="none" no-lines>
+                <ion-thumbnail class="ion-no-margin" (click)="imageClicked(item)">
+                  <img [src]='item.imageUrl' />
                 </ion-thumbnail>
-                <ion-title size="large">{{ item.title }}</ion-title>
-                <ion-button (click)="selectItem(item)">
-                  <ion-icon slot="start" name="arrow-dropdown"></ion-icon> Show More
+                <ion-label class="ion-padding-start" [ngStyle]="{'color': item.getTextColor()}">{{ item.title }}
+                </ion-label>
+                <ion-button *ngIf="!item.showDescription" (click)="selectItem(item);$event.stopPropagation();">
+                  <ion-icon name="arrow-dropdown"></ion-icon> <span class="showMoreButton">Show More</span>
+                </ion-button> 
+                <ion-button *ngIf="item.showDescription" (click)="selectItem(item);$event.stopPropagation();">
+                  <ion-icon name="arrow-dropup"></ion-icon> <span class="showMoreButton">Show Less</span>
                 </ion-button>
-                <ion-button type="button" color="danger" (click)="deleteItem(item)">
+                <ion-button type="button" color="danger" (click)="deleteItem(item);$event.stopPropagation();">
                   <ion-icon name="close"></ion-icon>
                 </ion-button>
               </ion-item>
-            </ion-list>
-          </ion-card-content>
+              <div *ngIf="item.showDescription" class="itemDescription ion-text-center" [ngStyle]="{'color': item.getTextColor()}">
+                <p><strong>Fun Fact: </strong>{{ item.description }}</p>
+              </div>
+            </div>
+          </ion-virtual-scroll>
+
+
+          <ion-infinite-scroll threshold="100px" (ionInfinite)="loadMoreData($event)">
+            <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Loading more data...">
+            </ion-infinite-scroll-content>
+          </ion-infinite-scroll>
+
+
+
+
+          <!-- <ion-reorder-group id="reorder" (ionItemReorder)="doReorder($event)" disabled="false"> -->
+          <!-- <ion-virtual-scroll [items]="filteredItems" approxItemHeight="100px;">
+                <ion-item *virtualItem="let item" class="ion-no-padding" (click)="itemClicked(item)"  id="{{item.title}}">
+                  <ion-thumbnail class="ion-no-margin" (click)="imageClicked(item)">
+                    <img [src]='item.imageUrl' />
+                  </ion-thumbnail>
+                  <ion-label class="ion-text-center">{{ item.title }}</ion-label>
+                  <ion-button (click)="selectItem(item);$event.stopPropagation();">
+                    <ion-icon slot="start" name="arrow-dropdown"></ion-icon> Show More
+                  </ion-button>
+                  <ion-button type="button" color="danger" (click)="deleteItem(item);$event.stopPropagation();">
+                    <ion-icon name="close"></ion-icon>
+                  </ion-button>
+                  <div *ngIf="item.showDescription">
+                    <ion-header>{{ item.description }}</ion-header>
+                  </div>
+
+                </ion-item>
+
+              </ion-virtual-scroll> -->
+
+
+          <!-- <ion-list class="ion-no-padding">
+            <ion-reorder-group id="reorder" (ionItemReorder)="doReorder($event)" disabled="false">
+              <ion-item *ngFor="let item of filteredItems" class="ion-no-padding" (click)="itemClicked(item)"
+                class="expand-wrapper" [class.collapsed]="!item.showDescription" id="{{item.title}}">
+                <ion-reorder slot="start"></ion-reorder>
+                <ion-thumbnail class="ion-no-margin">
+                  <img src='{{item.imageUrl}}' />
+                </ion-thumbnail>
+                <ion-label>{{ item.title }}</ion-label>
+                <ion-button (click)="selectItem(item);$event.stopPropagation();">
+                  <ion-icon slot="start" name="arrow-dropdown"></ion-icon> Show More
+                </ion-button>
+                <ion-button type="button" color="danger" (click)="deleteItem(item);$event.stopPropagation();">
+                  <ion-icon name="close"></ion-icon>
+                </ion-button>
+                <ion-header *ngIf="item.showDescription">{{ item.description }}</ion-header>
+              </ion-item>
+            </ion-reorder-group>
+          </ion-list> -->
         </ion-card>
       </ion-col>
     </ion-row>

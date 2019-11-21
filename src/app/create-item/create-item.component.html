@@ -1,89 +1,32 @@
-<ion-card class="ion-padding" style="height:100%">
-  <ion-card-header class="ion-text-center">
-    <h1>Add new animal</h1>
+<ion-card>
+  <ion-card-header>
+    <ion-title class="ion-text-center">
+      <h1>Add a new animal <ion-icon name="paw" slot="end"></ion-icon></h1>
+    </ion-title>
   </ion-card-header>
-  <ion-card-content>
-      <form [formGroup]="newImageItem">
-          <ion-item>
-            <ion-img *ngIf="url" src="{{url}}"></ion-img>
-            <ion-input type='file' id='file' accept="image/*" (change)="onSelectFile($event)"></ion-input>
-          </ion-item>
-          <ion-item>
-            <ion-label>Name: </ion-label>
-            <ion-input type="text" formControlName="title"></ion-input>
-          </ion-item>
-          <ion-item>
-              <ion-label>Description: </ion-label>
-              <ion-input type="text" formControlName="description"></ion-input>
-            </ion-item>
-          <ion-item class="ion-padding-horizontal">
-            <ion-button slot="start" type="submit" [disabled]="!newImageItem.valid" (click)="submit()" color="success"><ion-icon slot="start" name="add-circle-outline"></ion-icon> Create</ion-button>
-            <ion-button slot="end" (click)="close()" color="danger"><ion-icon slot="start" name="close"></ion-icon> Cancel</ion-button>
-          </ion-item>
-          <ion-label class="ion-text-center" *ngIf="errorMsg" color="danger">
-            {{errorMsg}}
-          </ion-label>
-        </form>
-  </ion-card-content>
+    <form [formGroup]="newImageItem">
+      <ion-item>
+        <ion-img *ngIf="url" src="{{url}}"></ion-img>
+        <ion-input type='file' id='file' accept="image/*" (change)="onSelectFile($event)"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label>Name: </ion-label>
+        <ion-input type="text" formControlName="title"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label>Description: </ion-label>
+        <ion-textarea type="text" formControlName="description"></ion-textarea>
+      </ion-item>
+      <ion-item class="ion-padding-horizontal">
+        <ion-button slot="start" type="submit" [disabled]="!newImageItem.valid" (click)="submit()" color="success">
+          <ion-icon slot="start" name="add-circle-outline"></ion-icon> Create
+        </ion-button>
+        <ion-button slot="end" (click)="close()" color="danger">
+          <ion-icon slot="start" name="close"></ion-icon> Cancel
+        </ion-button>
+      </ion-item>
+      <ion-label class="ion-text-center" *ngIf="errorMsg" color="danger">
+        {{errorMsg}}
+      </ion-label>
+    </form>
 </ion-card>
-
-{{newImageItem.value | json}}
-
-<!--
-<div class="col-8 offset-2 mt-5">
-  <h2 class="center"><i class="fas fa-file-upload"></i> Upload Meme</h2>
-  <form [formGroup]="meme" class="form">
-    <div class="row">
-      <div class="col-6">
-        <div class="form-group center">
-          <img *ngIf="url" [src]="url" height="400"> <br />
-          <input class="m-1 inputfile" type='file' id='file' accept="image/*" (change)="onSelectFile($event)">
-          <label for="file" class="btn btn-primary m-1"><i class="fas fa-file-upload"></i> Select Meme</label>
-        </div>
-      </div>
-      <div class="col-6">
-        <div class="form-group row">
-          <div class="col-3 labelDiv">
-            <label class="col-form-label" for="name"><b>Name:</b></label>
-          </div>
-          <div class="col-6">
-            <input type="text" class="form-control" id="name" formControlName="name">
-          </div>
-        </div>
-        <div *ngIf="genres" class="mt-2">
-          <div class="form-group row">
-            <div class="col-3 labelDiv">
-              <label class="col-form-label" for="genre"><b><i class="fas fa-search"></i> Tag:</b></label>
-            </div>
-            <div class="col-6">
-              <input type="text" class="form-control" id="genre" (keyup)="genreOnKey($event)" />
-            </div>
-            <div class="col-3">
-              <button class="btn btn-primary" (click)="addGenre()"><i class="fas fa-plus"></i> Add Tag</button>
-            </div>
-          </div>
-          <div class="genres">
-            <div *ngFor="let genre of filteredGenres" class="genre" [ngClass]="{'genreSelected' : isSelected(genre)}"
-              (click)="clickGenre(genre)">
-              <strong>{{genre.name}}</strong>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <br />
-    <div class="mb-2 center">
-      <button type="submit" [disabled]="!meme.valid" (click)="onSubmit()" class="btn btn-success mr-5">
-        <i class="fas fa-plus-circle"></i> Create Meme
-      </button>
-      <button type="button" (click)="cancel()" class="btn btn-danger">
-        <i class="fas fa-times-circle"></i> Cancel
-      </button>
-    </div>
-    <div *ngIf="errorMsg" class="alert alert-danger col-6 offset-3">
-      {{errorMsg}}
-    </div>
-  </form>
-</div>
-
--->
