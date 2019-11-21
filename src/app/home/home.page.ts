@@ -1,8 +1,9 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ImageItem } from '../imageItem';
-import { ModalController, AlertController, ToastController, IonVirtualScroll } from '@ionic/angular';
+import { ModalController, AlertController, ToastController, IonVirtualScroll, PopoverController } from '@ionic/angular';
 import { ItemService } from '../item.service';
 import { CreateItemComponent } from '../create-item/create-item.component';
+import { ImageViewerComponent } from '../image-viewer/image-viewer.component';
 
 @Component({
   selector: 'app-home',
@@ -19,7 +20,7 @@ export class HomePage implements OnInit {
 
   constructor(
     private modalController: ModalController, private alertController: AlertController, private itemService: ItemService,
-    public toastController: ToastController) {
+    public toastController: ToastController, public popoverController: PopoverController) {
     this.tracker = (ix, obj) => this.trackByFn(ix, obj);
 
   }
@@ -37,9 +38,32 @@ export class HomePage implements OnInit {
     ev.detail.complete();
   }
 
-  imageClicked(item) {
-    console.log(item);
+  async imageClicked(item: any) {
+    const popover = await this.popoverController.create({
+      component: ImageViewerComponent,
+      cssClass: 'test',
+      componentProps: {
+        imageUrl: item.imageUrl
+     },
+      translucent: true
+    });
+    return await popover.present();
   }
+/*
+  async imageClicked(item) {
+    const modal = await this.modalController.create({
+      component: ImageViewerComponent,
+      cssClass: 'test',
+      componentProps: {
+        imageUrl: item.imageUrl
+     }
+    });
+    await modal.present();
+    modal.onDidDismiss().then(res => {
+      console.log("Imageviewer done");
+    });
+
+  }*/
 
   getItems() {
     return [...this.items];
@@ -104,8 +128,19 @@ export class HomePage implements OnInit {
 
   selectItem(item: ImageItem) {
     item.showDescription = !item.showDescription;
+    // this.ordersVirtualScroll.ngDoCheck();
     this.ordersVirtualScroll.checkRange(this.filteredItems.indexOf(item), 1);
+    //((item: any, index: number) => number) | undefined
+
+        //this.ordersVirtualScroll.checkRange(this.filteredItems.indexOf(item), 1);
+    //console.log(this.ordersVirtualScroll.);
+    /*setTimeout(()=>{    
+      console.log(this.ordersVirtualScroll); 
+      this.ordersVirtualScroll.checkRange(this.filteredItems.indexOf(item), 1);
+      console.log("done");
+    }, 500);*/
   }
+
 
   // Ionic Alert Animations?
   deleteItem(item: ImageItem) {

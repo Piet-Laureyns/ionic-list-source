@@ -1,8 +1,26 @@
+
+/*
 .custom-modal .modal-wrapper {
     --background: var(--ion-color-dark);
     border-radius: 5%;
 }
 .custom-modal ion-card-content {
     --background: var(--ion-color-dark);
+}
+
+*/
+
+ion-card-header {
+    --background: var(--ion-color-dark);
+}
+.formDiv {
+  padding: 5%;
+}
+
+.uploadedImg{
+    height: 30vh;
+    width: 70%;
+    margin-left: 15%;
+    margin-right: 15%;
 }
   

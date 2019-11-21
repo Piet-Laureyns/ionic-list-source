@@ -63,10 +63,6 @@
   margin-right:0;
 }
 
-:root ion-item{
-  --background: transparant;
-}
-
 :root ion-card-header{
   padding: 0;
 }
@@ -87,5 +83,39 @@
   padding-top: 1%;
   padding-bottom: 1%;
   text-transform: unset;
+}
+
+:root ion-item{
+  --background: transparent;
+}
+
+:root  ion-virtual-scroll>.virtual-item{
+  position: relative;
+}
+
+
+:root ion-modal{
+overflow:scroll;
+border:solid 10px var(--ion-color-dark);
+
+}
+
+:root .popover-content img{
+  max-height: 100%;
+  height: auto;
+  width: auto;
+}
+
+:root .popover {
+  height: auto !important;
+  overflow: scroll;
+}
+
+:root .popover-content{
+  height: max-content;
+  width: max-content;
+  margin: 0;
+  padding: 0;
+  background-color: transparent;
 }
 

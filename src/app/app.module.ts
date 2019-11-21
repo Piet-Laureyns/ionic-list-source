@@ -10,11 +10,12 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { CreateItemComponent } from './create-item/create-item.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ImageViewerComponent } from './image-viewer/image-viewer.component';
 
 
 @NgModule({
-  declarations: [AppComponent, CreateItemComponent],
-  entryComponents: [CreateItemComponent],
+  declarations: [AppComponent, CreateItemComponent, ImageViewerComponent],
+  entryComponents: [CreateItemComponent, ImageViewerComponent],
   imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, FormsModule, ReactiveFormsModule],
   providers: [
     StatusBar,

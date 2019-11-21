@@ -40,13 +40,13 @@
             </ion-item>
           </ion-card-header>
 
-          <ion-virtual-scroll [items]="filteredItems" approxItemHeight="150px" [trackBy]="tracker" #virtualScroll>
-            <div class="item expand-wrapper" *virtualItem="let item;"
+          <ion-virtual-scroll [items]="filteredItems"  #virtualScroll>
+            <div class="item " *virtualItem="let item"
               [ngStyle]="{'background-color': item.getBackgroundColor()}"
               (click)="itemClicked(item);$event.stopPropagation();" [id]="item.title"
-              [class.collapsed]="!item.showDescription">
+              [class.expand-wrapper]="item.showDescription">
               <ion-item class="ion-no-padding" lines="none" no-lines>
-                <ion-thumbnail class="ion-no-margin" (click)="imageClicked(item)">
+                <ion-thumbnail class="ion-no-margin" (click)="imageClicked(item);$event.stopPropagation();">
                   <img [src]='item.imageUrl' />
                 </ion-thumbnail>
                 <ion-label class="ion-padding-start" [ngStyle]="{'color': item.getTextColor()}">{{ item.title }}

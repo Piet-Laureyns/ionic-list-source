@@ -32,15 +32,15 @@ export class CreateItemComponent implements OnInit {
       this.imageName = event.target.files[0].name;
       const validImageTypes = ['image/gif', 'image/jpeg', 'image/png'];
       if (!validImageTypes.includes(event.target.files[0].type)) {
-        this.errorMsg = 'You can only upload images(jpeg,png,gif).'
+        this.errorMsg = 'You can only upload images(jpeg,png,gif).';
       } else {
         this.errorMsg = '';
         this.newImageItem.patchValue({ name: this.imageName.split('.')[0] });
         const reader = new FileReader();
         reader.readAsDataURL(event.target.files[0]); // read file as data url
-        reader.onload = (event: any) => { // called once readAsDataURL is completed
-          this.image = event.target.result;
-          this.url = event.target.result;
+        reader.onload = (ev: any) => { // called once readAsDataURL is completed
+          this.image = ev.target.result;
+          this.url = ev.target.result;
         }
       }
     }
