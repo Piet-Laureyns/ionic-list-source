@@ -10,7 +10,7 @@ import { ImageItem } from '../imageItem';
 })
 export class CreateItemComponent implements OnInit {
 
-  errorMsg;
+  errorMsg: string;
   newImageItem: FormGroup;
   imageName: string;
   image: ImageBitmap;
@@ -22,7 +22,7 @@ export class CreateItemComponent implements OnInit {
   ngOnInit() {
     this.newImageItem = this.fb.group({
       title: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(30)]],
-      description: ['', [Validators.required, Validators.minLength(2)]]
+      description: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(300)]]
     });
   }
 
@@ -41,7 +41,7 @@ export class CreateItemComponent implements OnInit {
         reader.onload = (ev: any) => { // called once readAsDataURL is completed
           this.image = ev.target.result;
           this.url = ev.target.result;
-        }
+        };
       }
     }
   }

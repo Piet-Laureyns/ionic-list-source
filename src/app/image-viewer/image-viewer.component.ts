@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {ModalController, NavParams} from '@ionic/angular';
+import { ModalController, NavParams } from '@ionic/angular';
 
 @Component({
   selector: 'app-image-viewer',
@@ -10,20 +10,16 @@ export class ImageViewerComponent implements OnInit {
 
   imageUrl: string;
 
+  constructor(private modalController: ModalController, private navParams: NavParams) { }
 
-  constructor(private modalController: ModalController,
-    private navParams: NavParams) { }
-
-  ngOnInit() {}
+  ngOnInit() { }
 
   ionViewWillEnter() {
     this.imageUrl = this.navParams.get('imageUrl');
-    console.log(this.imageUrl);
   }
+
   async myDismiss() {
-    const result: Date = new Date();
-    
-    await this.modalController.dismiss(result);
+    await this.modalController.dismiss();
   }
 
 }

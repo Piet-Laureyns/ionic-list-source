@@ -15,58 +15,28 @@ export class HomePage implements OnInit {
   items: ImageItem[] = [];
   filteredItems: ImageItem[] = [];
   page = 0;
-  tracker: (ix: number, obj: any) => any;
-  @ViewChild('virtualScroll', {static: false}) ordersVirtualScroll: IonVirtualScroll;
+  noItemsMessage: string;
+  @ViewChild('virtualScroll', { static: false }) ordersVirtualScroll: IonVirtualScroll;
 
   constructor(
     private modalController: ModalController, private alertController: AlertController, private itemService: ItemService,
     public toastController: ToastController, public popoverController: PopoverController) {
-    this.tracker = (ix, obj) => this.trackByFn(ix, obj);
-
   }
-
-  //Search when not all items have been loaded fix it
 
   ngOnInit() {
     this.loadItems();
     this.filteredItems = this.items;
   }
 
-  doReorder(ev: any) {
-    const itemMove = this.filteredItems.splice(ev.detail.from, 1)[0];
-    this.filteredItems.splice(ev.detail.to, 0, itemMove);
-    ev.detail.complete();
-  }
-
   async imageClicked(item: any) {
     const popover = await this.popoverController.create({
       component: ImageViewerComponent,
-      cssClass: 'test',
       componentProps: {
         imageUrl: item.imageUrl
-     },
+      },
       translucent: true
     });
     return await popover.present();
-  }
-/*
-  async imageClicked(item) {
-    const modal = await this.modalController.create({
-      component: ImageViewerComponent,
-      cssClass: 'test',
-      componentProps: {
-        imageUrl: item.imageUrl
-     }
-    });
-    await modal.present();
-    modal.onDidDismiss().then(res => {
-      console.log("Imageviewer done");
-    });
-
-  }*/
-
-  getItems() {
-    return [...this.items];
   }
 
   loadItems(infiniteScroll?) {
@@ -85,13 +55,10 @@ export class HomePage implements OnInit {
     }
   }
 
-  trackByFn(index, item) {
-    return item ? item.title : index;
-  }
-
+  // Assign random colors to the background-color and color of clicked item
   itemClicked(item: ImageItem) {
-    const randomColorLight = this.createHexcode(Math, 'ABCDEF', 4);
-    const randomColorDark = this.createHexcode(Math, '0123456789', 4);
+    const randomColorLight = this.createHexcode(Math, 'ABCDEF98', 4);
+    const randomColorDark = this.createHexcode(Math, '01234567', 4);
     const random = Math.floor(Math.random() * 2);
     if (random === 1) {
       item.setBackgroundColor('#' + randomColorDark);
@@ -102,12 +69,8 @@ export class HomePage implements OnInit {
     }
   }
 
-  // Deploy         https://stackoverflow.com/questions/53036381/how-to-deploy-ionic-4-app-to-github-pages
-  //         https://www.joshmorony.com/creating-an-accordion-list-in-ionic/
-
   private createHexcode(m, s, c) {
     return s[m.floor(m.random() * s.length)] + (c && this.createHexcode(m, s, c - 1));
-    // Source https://stackoverflow.com/questions/13833463/how-do-i-generate-a-random-hex-code-that-of-a-lighter-color-in-javascript
   }
 
   async createNewItemClicked() {
@@ -126,24 +89,12 @@ export class HomePage implements OnInit {
     });
   }
 
-  selectItem(item: ImageItem) {
+  showMoreButtonClicked(item: ImageItem) {
     item.showDescription = !item.showDescription;
-    // this.ordersVirtualScroll.ngDoCheck();
     this.ordersVirtualScroll.checkRange(this.filteredItems.indexOf(item), 1);
-    //((item: any, index: number) => number) | undefined
-
-        //this.ordersVirtualScroll.checkRange(this.filteredItems.indexOf(item), 1);
-    //console.log(this.ordersVirtualScroll.);
-    /*setTimeout(()=>{    
-      console.log(this.ordersVirtualScroll); 
-      this.ordersVirtualScroll.checkRange(this.filteredItems.indexOf(item), 1);
-      console.log("done");
-    }, 500);*/
   }
 
-
-  // Ionic Alert Animations?
-  deleteItem(item: ImageItem) {
+  deleteItemClicked(item: ImageItem) {
     this.alertController.create({
       header: 'Are you sure?',
       message: 'Are you sure that you want to delete <strong>' + item.title + '</strong>?',
@@ -152,12 +103,9 @@ export class HomePage implements OnInit {
         cssClass: 'yesButton',
         handler: () => {
           const index: number = this.items.indexOf(item);
-          const index2: number = this.filteredItems.indexOf(item);
           if (index !== -1) {
             this.items.splice(index, 1);
-            this.filteredItems.splice(index2, 1);
             this.filteredItems = [...this.filteredItems];
-            console.log(this.filteredItems);
           }
           this.presentToast(item.title + ' has been deleted from the list.');
         }
@@ -172,17 +120,23 @@ export class HomePage implements OnInit {
   }
 
   searchItems(event) {
-    if (event.detail) {
+    if (event.detail) { // Check if something is typed in the search input
       const input = event.detail.srcElement.value.toLowerCase();
-      if (input === '') {
+      if (input === '') { // If search field is empty => show entire list
         this.filteredItems = this.items;
+        this.noItemsMessage = '';
       } else {
-        this.filteredItems = this.items.filter(item =>
-          item.title.toLowerCase().includes(input)
-        );
+        const matchingItems: ImageItem[] = this.itemService.getItemsMatchingSearchString(input);
+        if (matchingItems.length === 0) {
+          this.noItemsMessage = 'There are no animals in the list that match "' + input + '".';
+          this.filteredItems = [];
+        } else {
+          this.filteredItems = matchingItems;
+        }
       }
     } else {
       this.filteredItems = this.items;
+      this.noItemsMessage = '';
     }
   }
 

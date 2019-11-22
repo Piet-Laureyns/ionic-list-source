@@ -35,11 +35,11 @@
   background-color: var(--ion-color-success) !important;
 }
 
-:root ion-content{
+:root ion-content {
   max-height: 100%;
 }
 
-:root ion-app{
+:root ion-app {
   max-height: 100%;
 }
 
@@ -55,15 +55,15 @@
   --color: var(--ion-color-primary);
 }
 
-:root ion-reorder{
+:root ion-reorder {
   margin: 0;
 }
 
-:root ion-button{
-  margin-right:0;
+:root ion-button {
+  margin-right: 0;
 }
 
-:root ion-card-header{
+:root ion-card-header {
   padding: 0;
 }
 
@@ -85,37 +85,35 @@
   text-transform: unset;
 }
 
-:root ion-item{
+:root ion-item {
   --background: transparent;
 }
 
-:root  ion-virtual-scroll>.virtual-item{
-  position: relative;
-}
-
-
-:root ion-modal{
-overflow:scroll;
-border:solid 10px var(--ion-color-dark);
-
-}
-
-:root .popover-content img{
+:root ion-modal .modal-wrapper {
+  max-width: 100%;
   max-height: 100%;
+}
+
+:root .popover-content img {
+  max-width: 90vw;
+  max-height: 90vw;
   height: auto;
   width: auto;
 }
 
 :root .popover {
-  height: auto !important;
-  overflow: scroll;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
 }
 
-:root .popover-content{
+:root .popover-content {
   height: max-content;
   width: max-content;
-  margin: 0;
-  padding: 0;
   background-color: transparent;
 }
 
+:root ion-textarea, ion-input {
+  --color: var(--ion-color-light) !important;
+}

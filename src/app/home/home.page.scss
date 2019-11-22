@@ -6,62 +6,16 @@ ion-virtual-scroll ion-item:hover {
 .item {
   border: solid 1px var(--ion-color-dark);
   border-radius: 1vw;
-//   max-height:fit-content;
-
-}
-.item::after{
-    // transition: all 2s ease-in-out !important;
+  transition: all 0.3s ease-in-out;
 }
 
 .itemDescription {
-  padding-top: 0.1vw;
-  padding-bottom: 0.1vw;
-}
-
-.virtual-loading {
-  opacity: 1;
-}
-
-.itemDescription {
-    // transition: height 1s ease-in-out;
-// display: none;
-/*  transition: visibility 0.5s ease-in-out;
- */
-//  transition: all 0.5s ease-in-out;
- 
-}
-
-ion-item {
-    transition: .3s ease-in-out;
-}
-
-.itemOpened {
-// display: inline !important;
-}
-
-.expand-wrapper {
-    // transition: all 2s ease !important;
-
-    // background-color: red !important;
-    // max-height:auto !important;
-    // perspective: 100px;
-
-    // transition: height 1s ease-in-out;
-
-  //transition:  0.5s ease-in-out;
-  // height:fit-content;
-  // max-height: 10vh;
-  // overflow: hidden;
-  // height: auto;
+  padding-top: 0.1vh;
+  padding-bottom: 0.1vh;
 }
 
 ion-thumbnail:hover {
   cursor: zoom-in;
-}
-
-.collapsed {
-    // transition: all 0.5s ease-in-out;
-  // max-height: 6vh !important;
 }
 
 @media only screen and (max-width: 450px) {
