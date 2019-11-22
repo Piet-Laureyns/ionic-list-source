@@ -18,6 +18,18 @@ ion-thumbnail:hover {
   cursor: zoom-in;
 }
 
+.noButton {
+  color: var(--ion-color-light) !important;
+  background-color: var(--ion-color-danger) !important;
+}
+
+.yesButton {
+  color: var(--ion-color-light) !important;
+  background-color: var(--ion-color-success) !important;
+}
+
+
+
 @media only screen and (max-width: 450px) {
   ion-button {
     font-size: 50%;
